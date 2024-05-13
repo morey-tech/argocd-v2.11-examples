@@ -14,4 +14,13 @@ kubectl wait deployment -n argocd --all --for=condition=Available=True --timeout
 ARGOCD_ADMIN_PASSWORD="$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)"
 echo "${ARGOCD_ADMIN_PASSWORD}" > ~/argo-cd-admin-password.txt
 
+argocd login \
+  "localhost:31443" \
+  --username admin \
+  --password ${ARGOCD_ADMIN_PASSWORD} \
+  --grpc-web \
+  --insecure
+
+echo "Argo CD admin password: ${ARGOCD_ADMIN_PASSWORD}"
+
 echo "post-start complete" >> ~/status
