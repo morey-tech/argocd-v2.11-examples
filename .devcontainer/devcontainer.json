@@ -29,9 +29,9 @@
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 
-	"forwardPorts": [8080],
+	"forwardPorts": [31443],
 	"portsAttributes": {
-		"8080": {
+		"31443": {
 			"label": "Argo CD Dashboard",
 			"protocol": "https"
 		}
