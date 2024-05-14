@@ -1,6 +1,7 @@
 #!/bin/bash
+set -e  # Exit on non-zero exit code from commands
 
-echo "post-start start" >> ~/status
+echo "$(date): post-start start" >> ~/.status.log
 
 # this runs in background each time the container starts
 
@@ -23,4 +24,4 @@ argocd login \
 
 echo "Argo CD admin password: ${ARGOCD_ADMIN_PASSWORD}"
 
-echo "post-start complete" >> ~/status
+echo "$(date): post-start complete" >> ~/.status.log
