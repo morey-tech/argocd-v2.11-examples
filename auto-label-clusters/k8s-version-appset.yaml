@@ -26,3 +26,7 @@ spec:
       destination:
         server: '{{.server}}' # 'server' field of the secret
         namespace: whalesay
+      syncPolicy:
+        automated: {}
+        syncOptions:
+        - CreateNamespace=true
