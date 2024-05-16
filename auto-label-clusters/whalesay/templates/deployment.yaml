@@ -18,7 +18,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: docker/whalesay
           imagePullPolicy: "IfNotPresent"
-        - command:
+          command:
             - sh
             - '-c'
             - cowsay {{ .Values.whalesay }} && sleep {{ .Values.sleep }}
