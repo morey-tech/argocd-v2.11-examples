@@ -7,10 +7,11 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - clusters: {}
-      # selector:
-      #   matchLabels:
-      #     argocd.argoproj.io/kubernetes-version: *
+  - clusters:
+      selector:
+        matchExpressions:
+        # Only deploy to clusters with the required label.
+        - {key: 'argocd.argoproj.io/kubernetes-version', operator: Exists}
   template:
     metadata:
       name: '{{.name}}-whalesay-k8s-version' # 'name' field of the Secret
