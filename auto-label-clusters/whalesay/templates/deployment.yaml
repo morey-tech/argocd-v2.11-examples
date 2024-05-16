@@ -18,4 +18,4 @@ spec:
         - name: {{ .Chart.Name }}
           image: docker/whalesay
           imagePullPolicy: "IfNotPresent"
-          command: ["cowsay","{{ .Values.whalesay }}"]
+          command: ["cowsay","{{ .Values.whalesay }}","&&","sleep","100000"]
