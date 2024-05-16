@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: whalesay
+  name: whalesay-k8s-version
   namespace: argocd
 spec:
   goTemplate: true
@@ -13,7 +13,7 @@ spec:
       #     argocd.argoproj.io/kubernetes-version: *
   template:
     metadata:
-      name: '{{.name}}-whalesay' # 'name' field of the Secret
+      name: '{{.name}}-whalesay-k8s-version' # 'name' field of the Secret
     spec:
       project: "default"
       source:
@@ -25,7 +25,7 @@ spec:
             whalesay: 'Kubernetes version {{index .metadata.labels "argocd.argoproj.io/kubernetes-version"}}'
       destination:
         server: '{{.server}}' # 'server' field of the secret
-        namespace: whalesay
+        namespace: whalesay-k8s-version
       syncPolicy:
         automated: {}
         syncOptions:
