@@ -22,7 +22,7 @@ spec:
         path: auto-label-clusters/whalesay
         helm:
           valuesObject:
-            whalesay: 'Kubernetes version: {{index .metadata.labels "argocd.argoproj.io/kubernetes-version"}}'
+            whalesay: 'Kubernetes version {{index .metadata.labels "argocd.argoproj.io/kubernetes-version"}}'
       destination:
         server: '{{.server}}' # 'server' field of the secret
         namespace: whalesay
