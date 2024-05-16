@@ -25,7 +25,8 @@ The `in-cluster` Argo CD cluster connection is created automatically when Argo C
 
 Run the following command to create it with the label to tell Argo CD to add cluster info:
 ```bash
-argocd cluster add k3d-dev --label argocd.argoproj.io/auto-label-cluster-info="true" --cluster-endpoint internal
+argocd cluster add k3d-dev --cluster-endpoint internal -y && \
+  --label argocd.argoproj.io/auto-label-cluster-info="true"
 ```
 
 This will generate a `Secret` in the `argocd` namespace named `cluster-kubernetes.default.svc-XXXXXXXXXX` that looks like this:
