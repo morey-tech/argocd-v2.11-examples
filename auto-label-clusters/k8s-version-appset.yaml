@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: https://github.com/morey-tech/argocd-v2.11-examples.git
         targetRevision: HEAD
-        path: sync-waves/whalesay
+        path: auto-label-clusters/whalesay
         helm:
           valuesObject:
             whalesay: '{{index .metadata.labels "argocd.argoproj.io/kubernetes-version"}}'
