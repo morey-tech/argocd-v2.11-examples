@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "whalesay.fullname" . }}
+  labels:
+    {{- include "whalesay.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "whalesay.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "whalesay.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: docker/whalesay
+          imagePullPolicy: "IfNotPresent"
+          command: ["cowsay","{{ .Values.whalesay }}"]

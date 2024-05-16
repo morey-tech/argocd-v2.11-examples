@@ -21,5 +21,29 @@ Sync waves are often used to ensure that certain resources are created in the co
     - The [CreateNamespace](https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#create-namespace) sync option will ensure the namespace exists before starting the phases. However [Argo CD doesn't delete Namespaces created by this option](https://github.com/argoproj/argo-cd/issues/7875) when the Application is deleted. Which is why you might [include the Namespace in the manifests](https://github.com/argoproj/argo-cd/issues/7875#issuecomment-1551192762).
 
 ## Auto-Label Clusters With K8s Version
+The `in-cluster` Argo CD cluster connection is created automatically when Argo CD is deployed. However the declarative configuration (the Kubernetes `Secret` in the `argocd` namespace) for the `in-cluster` is not. 
+
+Run the following command to create it with the label to tell Argo CD to add cluster info:
+```bash
+argocd cluster add k3d-dev --label argocd.argoproj.io/auto-label-cluster-info="true" --cluster-endpoint internal
+```
+
+This will generate a `Secret` in the `argocd` namespace named `cluster-kubernetes.default.svc-XXXXXXXXXX` that looks like this:
+```yaml
+kind: Secret
+metadata:
+  labels:
+    # Indicate secret for cluster.
+    argocd.argoproj.io/secret-type: cluster
+    # Enable auto labeling with cluster info.
+    argocd.argoproj.io/auto-label-cluster-info: "true"
+    # Label added by Argo CD.
+    argocd.argoproj.io/kubernetes-version: "1.29"
+  name: cluster-kubernetes.default.svc-3396314289
+  namespace: argocd
+type: Opaque
+```
+
+If the `argocd.argoproj.io/kubernetes-version` label is not present yet, wait a moment for the controller to react to the `argocd.argoproj.io/auto-label-cluster-info` label.
 
 ## CLI Support For Applications with Multiple Sources

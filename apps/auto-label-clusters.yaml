@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: auto-label-clusters
+spec:
+  destination:
+    namespace: auto-label-clusters
+    name: in-cluster
+  project: default
+  source:
+    path: auto-label-clusters/
+    repoURL: https://github.com/morey-tech/argocd-v2.11-examples.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
