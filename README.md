@@ -25,8 +25,7 @@ The `in-cluster` Argo CD cluster connection is created automatically when Argo C
 
 Run the following command to create it with the label to tell Argo CD to add cluster info:
 ```bash
-argocd cluster add k3d-dev --cluster-endpoint internal -y && \
-  --label argocd.argoproj.io/auto-label-cluster-info="true"
+argocd cluster add k3d-dev --in-cluster --name "in-cluster" -y --label argocd.argoproj.io/auto-label-cluster-info="true"
 ```
 
 This will generate a `Secret` in the `argocd` namespace named `cluster-kubernetes.default.svc-XXXXXXXXXX` that looks like this:
@@ -46,5 +45,43 @@ type: Opaque
 ```
 
 If the `argocd.argoproj.io/kubernetes-version` label is not present yet, wait a moment for the controller to react to the `argocd.argoproj.io/auto-label-cluster-info` label.
+
+The `whalesay-k8s-version` `ApplicationSet` in this demo takes advantage of the `kubernetes-version` label added by Argo CD. It uses the `cluster` generator to generate an `Application` per cluster that contains `kubernetes-version` label.
+
+```yaml
+generators:
+- clusters:
+    selector:
+      matchExpressions:
+      # Only deploy to clusters with the required label.
+      - {key: 'argocd.argoproj.io/kubernetes-version', operator: Exists}
+```
+
+And passes the value of that label to the Helm chart.
+```yaml
+source:
+# ...
+  helm:
+    valuesObject:
+      whalesay: 'Kubernetes version {{index .metadata.labels "argocd.argoproj.io/kubernetes-version"}}'
+```
+
+So that the pod will print it in the logs.
+```
+ _________________________
+< Kubernetes version 1.29 >
+ -------------------------
+    \
+     \
+      \
+                    ##        .
+              ## ## ##       ==
+           ## ## ## ##      ===
+       /""""""""""""""""___/ ===
+  ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~
+       \______ o          __/
+        \    \        __/
+          \____\______/
+```
 
 ## CLI Support For Applications with Multiple Sources
