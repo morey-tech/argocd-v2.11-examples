@@ -7,7 +7,7 @@ servers: 3
 kubeAPI:
   hostIP: "0.0.0.0"
   hostPort: "6443"
-image: rancher/k3s:v1.27.13-k3s1
+image: rancher/k3s:v1.29.4-k3s1
 ports:
   - port: 31443:31443
     nodeFilters:
