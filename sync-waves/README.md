@@ -34,3 +34,7 @@ metadata:
   finalizers:
   - example.com/operator-finalizer
 ```
+
+The expected behaviour by most users and following the law of least surprise the correct behaviour, would be for the sync-waves to be respected in reverse order. Resources that are created first, should be deleted last.
+
+You can test this out for yourself by deleting the `sync-waves` `Application` is Argo CD and watching as the `Deployments` and `Services` get deleted before the `Namespace` (sync wave `-1`).
