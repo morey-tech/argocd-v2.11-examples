@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: multi-source-cli
+spec:
+  destination:
+    namespace: multi-source-cli
+    name: in-cluster
+  project: default
+  source:
+    path: multi-source-cli/
+    repoURL: https://github.com/morey-tech/argocd-v2.11-examples.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
