@@ -1,5 +1,7 @@
 # What's New in Argo CD v2.11?
 ## Prune Resources In Reverse Order of Sync Waves
+> By Siddhesh Ghadi (Red Hat) in https://github.com/argoproj/argo-cd/pull/16748
+
 Argo CD executes a sync operation in three phases: pre-sync, sync and post-sync. Within each phase you can have one or more waves.
 
 Sync waves are configured using the `argocd.argoproj.io/sync-wave` annotation on resources. By default, all resources are on sync wave 0. Therefore a sync wave of `-1` will get synced before all other resources that doesn't specify the annotation. 

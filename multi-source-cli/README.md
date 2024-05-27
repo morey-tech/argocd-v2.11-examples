@@ -1,5 +1,7 @@
 # What's New in Argo CD v2.11?
 ## CLI Support For Applications with Multiple Sources
+> Introduced by Mangaal Angom Meetei and Ishita Sequeira (Red Hat)
+
 The initial support for multiple sources for `Applications` [added in Argo CD v2.6](https://youtu.be/2VF2x72dZsQ). But there were several places in the CLI and the UI where support hadn't been added for multiple sources.
 
 Check out a [full demo](https://www.youtube.com/watch?v=MlAWr8bVr0I&t=733s) of using multiple sources to manage remote Helm values files. 

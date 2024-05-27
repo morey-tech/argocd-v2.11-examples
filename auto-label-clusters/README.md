@@ -1,5 +1,7 @@
 # What's New in Argo CD v2.11?
 ## Auto-Label Clusters With K8s Version
+> Introduced by Blake Pettersson (Akuity) in https://github.com/argoproj/argo-cd/pull/17289
+
 The `in-cluster` Argo CD cluster connection is created automatically when Argo CD is deployed. However the declarative configuration (the Kubernetes `Secret` in the `argocd` namespace) for the `in-cluster` is not. 
 
 Run the following command to create it with the label to tell Argo CD to add cluster info:
